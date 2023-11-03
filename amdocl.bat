@@ -120,12 +120,16 @@ for /r %%f in (amdocl*dll) do (
         if "%%~nxf"=="%%A" (
             echo Found: !FILE!
 
-            set FILE_BIT=!FILE:~-7,-5!
-
-            if !FILE_BIT! == 64 (
+            echo !FILE! | findstr /C:"_amd64_" >nul
+            if !ERRORLEVEL! == 0 (
                 set "ROOTKEY=!ROOTKEY64!"
             ) else (
-                set "ROOTKEY=!ROOTKEY32!"
+                set FILE_BIT=!FILE:~-7,-5!
+                if !FILE_BIT! == 64 (
+                    set "ROOTKEY=!ROOTKEY64!"
+                ) else (
+                    set "ROOTKEY=!ROOTKEY32!"
+                )
             )
 
             reg query !ROOTKEY! >nul 2>&1
