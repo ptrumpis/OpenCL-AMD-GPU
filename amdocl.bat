@@ -120,7 +120,7 @@ for /r %%f in (amdocl*dll) do (
         if "%%~nxf"=="%%A" (
             echo Found: !FILE!
 
-            echo !FILE! | findstr /C:"_amd64_" >nul
+            echo !FILE! | findstr /C:"64" >nul
             if !ERRORLEVEL! == 0 (
                 set "ROOTKEY=!ROOTKEY64!"
             ) else (
